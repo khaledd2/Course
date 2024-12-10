@@ -55,6 +55,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 // Custom services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
 
 /*=================================================== App ========================================*/
 var app = builder.Build();

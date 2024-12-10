@@ -1,9 +1,11 @@
-using Course.EF;
-using Course.EF.Models;
+using Course.BLL.Interfaces;
+using Course.BLL.Services;
+using Course.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+/*=================================================== Builder ========================================*/
 var builder = WebApplication.CreateBuilder(args);
 
 // *** service *** //
@@ -51,6 +53,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Custom services
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+/*=================================================== App ========================================*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,9 +68,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapGroup("/identity").MapIdentityApi<IdentityUser>();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Course.EF.Models;
+namespace Course.DAL.Models;
 
 public partial class Category
 {

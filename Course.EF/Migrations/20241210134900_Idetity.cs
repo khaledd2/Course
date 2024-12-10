@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Course.EF.Migrations
+namespace Course.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class Idetity : Migration

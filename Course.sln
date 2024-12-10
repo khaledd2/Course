@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Server", "Course\Course.Server.csproj", "{2385B9A8-75E2-4ED3-8795-153FADAB631B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.API", "Course\Course.API.csproj", "{2385B9A8-75E2-4ED3-8795-153FADAB631B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Core", "Course.Core\Course.Core.csproj", "{7FA942CC-343E-4B39-B1FF-661C7E924FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.BLL", "Course.Core\Course.BLL.csproj", "{7FA942CC-343E-4B39-B1FF-661C7E924FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.EF", "Course.EF\Course.EF.csproj", "{30CB9DCD-5195-4107-951E-0E48A1569D32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.DAL", "Course.EF\Course.DAL.csproj", "{30CB9DCD-5195-4107-951E-0E48A1569D32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Course.Shared", "Course.Shared\Course.Shared.csproj", "{9F5906CF-C47D-4910-8184-EC733EE78AB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course.Shared", "Course.Shared\Course.Shared.csproj", "{9F5906CF-C47D-4910-8184-EC733EE78AB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

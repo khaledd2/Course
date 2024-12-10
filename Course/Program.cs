@@ -1,4 +1,5 @@
 using Course.EF;
+using Course.EF.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;

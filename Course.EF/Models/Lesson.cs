@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Course.Server.Models;
+namespace Course.EF.Models;
 
 public partial class Lesson
 {

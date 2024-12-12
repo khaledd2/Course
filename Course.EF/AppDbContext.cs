@@ -112,7 +112,7 @@ public partial class AppDbContext : IdentityDbContext<IdentityUser>
 
             entity.HasOne(d => d.Course).WithMany(p => p.Goals)
                 .HasForeignKey(d => d.CourseId)
-                .OnDelete(DeleteBehavior.Restrict)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Goal_Course");
         });
 

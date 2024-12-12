@@ -10,7 +10,7 @@ namespace Course.BLL.Interfaces
 {
     public interface IImageService
     {
-        Task<BaseResponse<string>> AddImageAsync(IFormFile file, string filePath);
+        Task<BaseResponse<string>> AddImageAsync(IFormFile? file, string filePath);
         Task<BaseResponse<string>> RemoveImageAsync(string filePath);
     }
 }

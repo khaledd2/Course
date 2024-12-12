@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Course.Shared\Course.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\CourseImages\" />
+  </ItemGroup>
+
 </Project>

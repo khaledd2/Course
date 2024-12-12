@@ -56,9 +56,9 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 // Custom services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
-
-/*=================================================== App ========================================*/
+/*=================================================== App ===========================================*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -55,7 +55,7 @@ namespace Course.BLL.Services
                 var entity = await _db.Categories.FindAsync(category.Id);
                 if (entity == null)
                 {
-                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, null, false);
+                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, [], false);
                 }
 
                 entity.Name = category.Name;
@@ -97,7 +97,7 @@ namespace Course.BLL.Services
                 var entity = await _db.Categories.FindAsync(id);
                 if (entity == null)
                 {
-                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, null, false);
+                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, [], false);
                 }
 
                 var category = new CategoryDTO
@@ -121,7 +121,7 @@ namespace Course.BLL.Services
                 var entity = await _db.Categories.FindAsync(categoryId);
                 if (entity == null)
                 {
-                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, null, false);
+                    return new BaseResponse<CategoryDTO>(null, Messages.NotFound, [], false);
                 }
 
                 _db.Categories.Remove(entity);

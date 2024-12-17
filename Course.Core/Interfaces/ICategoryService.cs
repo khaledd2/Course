@@ -1,5 +1,6 @@
 ﻿using Course.Shared;
 using Course.Shared.DTOs;
+using Course.Shared.Records;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Course.BLL.Interfaces
 {
     public interface ICategoryService
     {
-        public Task<BaseResponse<IEnumerable<CategoryDTO>>> GetAllCategoriesAsync();
+        public Task<BaseResponse<IEnumerable<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination);
         public Task<BaseResponse<CategoryDTO>> GetCategoryByIdAsync(int id); 
         public Task<BaseResponse<CategoryDTO>> UpdateCategoryAsync(CategoryDTO category);
         public Task<BaseResponse<CategoryDTO>> CreateCategoryAsync(CategoryDTO category);

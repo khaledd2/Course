@@ -10,6 +10,7 @@ using Course.DAL;
 using Course.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Course.Shared.Constants;
+using Course.Shared.Records;
 namespace Course.BLL.Services
 {
     public class CategoryService : ICategoryService
@@ -71,16 +72,27 @@ namespace Course.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<IEnumerable<CategoryDTO>>> GetAllCategoriesAsync()
+        public async Task<BaseResponse<IEnumerable<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination)
         {
             try
             {
-                var categories = await _db.Categories
+                var categoriesQuery = _db.Categories
                     .Select(c => new CategoryDTO
                     {
                         Id = c.Id,
                         Name = c.Name
-                    }).ToListAsync();
+                    });
+
+                // Search
+                if (!string.IsNullOrWhiteSpace(pagination.Search))
+                    categoriesQuery.Where(c => c.Name.Contains(pagination.Search));
+
+
+                var categories = await
+                    categoriesQuery
+                    .Take(pagination.PageSize)
+                    .Skip(pagination.Skip())
+                    .ToListAsync();
 
                 return new BaseResponse<IEnumerable<CategoryDTO>>(categories, Messages.RetrievedSuccessfully);
             }

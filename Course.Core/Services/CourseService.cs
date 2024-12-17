@@ -96,7 +96,7 @@ namespace Course.BLL.Services
                     CategoryName = c.Category.Name
                 })
                 .Take(pagination.PageSize)
-                .Skip((pagination.PageIndex - 1) * pagination.PageSize)
+                .Skip(pagination.Skip())
                 .ToListAsync();
 
                 return new BaseResponse<IEnumerable<GetAllCoursesDTO>>(items, Messages.RetrievedSuccessfully, [], true);

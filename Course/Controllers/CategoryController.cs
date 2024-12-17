@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Course.BLL.Interfaces;
 using Course.Shared.DTOs;
+using Course.Shared.Records;
 namespace Course.API.Controllers
 {
     [Route("api/[controller]")]
@@ -16,9 +17,9 @@ namespace Course.API.Controllers
         }
         
         [HttpGet("GetAllCategoriesAsync")]
-        public async Task<IActionResult> GetAllCategoriesAsync()
+        public async Task<IActionResult> GetAllCategoriesAsync([FromQuery] Pagination pagination)
         {
-            var response = await _categoryServices.GetAllCategoriesAsync();
+            var response = await _categoryServices.GetAllCategoriesAsync(pagination);
             if (response.Success)
                 return Ok(response);
             return BadRequest(response);

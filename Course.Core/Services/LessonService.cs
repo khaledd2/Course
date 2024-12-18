@@ -94,13 +94,13 @@ namespace Course.BLL.Services
         {
             try
             {
-                var entity = await _db.Lessons.FindAsync(lesson.Id);
+                var entity = await _db.Lessons.AsNoTracking().FirstOrDefaultAsync(l=>l.Id == lesson.Id);
                 if (entity == null)
                 {
                     return new BaseResponse<PostLessonDTO>(null, Messages.NotFound, [], false);
                 }
 
-                entity = _mapper.Map<Lesson>(entity);
+                entity = _mapper.Map<Lesson>(lesson);
 
                 _db.Lessons.Update(entity);
                 await _db.SaveChangesAsync();

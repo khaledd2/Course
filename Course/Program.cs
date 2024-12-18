@@ -1,3 +1,5 @@
+using AutoMapper;
+using Course.BLL;
 using Course.BLL.Interfaces;
 using Course.BLL.Services;
 using Course.DAL;
@@ -53,10 +55,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// AutoMapper
+builder.Services.AddSingleton(new MapperConfiguration(mc =>
+    {
+        mc.AddProfile(new AutoMapperProfile());
+    }).CreateMapper());
+
 // Custom services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IUnitService, UnitService>();
+builder.Services.AddScoped<ILessonService, LessonService>();
 
 /*=================================================== App ===========================================*/
 var app = builder.Build();

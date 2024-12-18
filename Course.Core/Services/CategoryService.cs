@@ -11,6 +11,7 @@ using Course.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Course.Shared.Constants;
 using Course.Shared.Records;
+using Course.Shared.ViewModels;
 namespace Course.BLL.Services
 {
     public class CategoryService : ICategoryService
@@ -72,7 +73,7 @@ namespace Course.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<IEnumerable<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination)
+        public async Task<BaseResponse<DataTableVM<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination)
         {
             try
             {
@@ -85,8 +86,10 @@ namespace Course.BLL.Services
 
                 // Search
                 if (!string.IsNullOrWhiteSpace(pagination.Search))
-                    categoriesQuery.Where(c => c.Name.Contains(pagination.Search));
+                    categoriesQuery = categoriesQuery.Where(c => c.Name.Contains(pagination.Search));
 
+                // Data size
+                int dataSize = categoriesQuery.Count();
 
                 var categories = await
                     categoriesQuery
@@ -94,11 +97,14 @@ namespace Course.BLL.Services
                     .Skip(pagination.Skip())
                     .ToListAsync();
 
-                return new BaseResponse<IEnumerable<CategoryDTO>>(categories, Messages.RetrievedSuccessfully);
+                var dataTable = new DataTableVM<CategoryDTO>
+                    (data: categories, dataSize: dataSize,pageSize: pagination.PageSize, currentPage: pagination.PageNumber );
+
+                return new BaseResponse<DataTableVM<CategoryDTO>>(dataTable, Messages.RetrievedSuccessfully);
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IEnumerable<CategoryDTO>>(null, Messages.Error, new List<string> { ex.Message }, false);
+                return new BaseResponse<DataTableVM<CategoryDTO>>(null, Messages.Error, new List<string> { ex.Message }, false);
             }
         }
 

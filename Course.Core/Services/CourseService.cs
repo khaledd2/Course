@@ -6,10 +6,12 @@ using Course.Shared;
 using Course.Shared.Constants;
 using Course.Shared.DTOs;
 using Course.Shared.Records;
+using Course.Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,39 +74,45 @@ namespace Course.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<IEnumerable<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination)
+        public async Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination)
         {
             try
             {
                 // Get course By id
-                var itemsQuery = _db.Courses
-                    .Include(c => c.Goals)
-                    .Include(c => c.Category);
+                var itemsQuery = _db.Courses.AsQueryable();
 
                 // Search
                 if (!string.IsNullOrWhiteSpace(pagination.Search))
-                    itemsQuery.Where(c => c.Title.Contains(pagination.Search) || c.Description.Contains(pagination.Search));
+                    itemsQuery = itemsQuery.Where(c => c.Title.Contains(pagination.Search) || c.Description.Contains(pagination.Search));
+
+                // Size
+                int dataSize = itemsQuery.Count();
 
                 // Map
-                var items = await itemsQuery.Select(c => new GetAllCoursesDTO
-                {
-                    Id = c.Id,
-                    Title = c.Title,
-                    ImageUrl = c.ImageUrl,
-                    AllowDownload = c.AllowDownload,
-                    CreatedAt = c.CreatedAt,
-                    CategoryName = c.Category.Name
-                })
+                var items = await itemsQuery
+                    
+                    .Select(c => new GetAllCoursesDTO
+                    {
+                        Id = c.Id,
+                        Title = c.Title,
+                        ImageUrl = c.ImageUrl,
+                        AllowDownload = c.AllowDownload,
+                        CreatedAt = c.CreatedAt,
+                        CategoryName = c.Category.Name
+                    })
                 .Take(pagination.PageSize)
                 .Skip(pagination.Skip())
                 .ToListAsync();
 
-                return new BaseResponse<IEnumerable<GetAllCoursesDTO>>(items, Messages.RetrievedSuccessfully, [], true);
+                var dataTable = new DataTableVM<GetAllCoursesDTO>
+                        (data: items, dataSize: dataSize, pageSize: pagination.PageSize, currentPage: pagination.PageNumber);
+
+                return new BaseResponse<DataTableVM<GetAllCoursesDTO>>(dataTable, Messages.RetrievedSuccessfully, [], true);
 
             }
             catch (Exception ex)
             {
-                return new BaseResponse<IEnumerable<GetAllCoursesDTO>>(null, Messages.Error, new List<string> { ex.Message }, false);
+                return new BaseResponse<DataTableVM<GetAllCoursesDTO>>(null, Messages.Error, new List<string> { ex.Message }, false);
 
             }
 
@@ -145,9 +153,23 @@ namespace Course.BLL.Services
                         
                     }).FirstOrDefaultAsync(c=>c.Id == id);
 
-                if(item == null)
+                if (item == null)
                     return new BaseResponse<GetOneCourseDTO>(null, Messages.NotFound, [], false);
-                 
+
+                // Incude lessons
+                item.Lessons = await _db.Lessons
+                    .Where(l=> l.Unit.CourseId == id)
+                    .OrderBy(l=> l.UnitId)
+                    .ThenBy(l=> l.Order)
+                    .Select(l => new GetAllLessonsDTO
+                    {
+                        Id = l.Id,
+                        Name = l.Name,
+                        Order = l.Order,
+                        UnitId = l.UnitId,
+                        UnitName = l.Unit.Name,
+                    }).ToListAsync();
+
                 return new BaseResponse<GetOneCourseDTO>(item, Messages.RetrievedSuccessfully, [], true);
             }
             catch (Exception ex)

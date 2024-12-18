@@ -103,6 +103,7 @@ namespace Course.Shared.DTOs
         public virtual ICollection<GoalDTO> Goals { get; set; } = new List<GoalDTO>();
 
         public virtual ICollection<UnitDTO> Units { get; set; } = new List<UnitDTO>();
+        public virtual ICollection<GetAllLessonsDTO> Lessons { get; set; } = new List<GetAllLessonsDTO>();
     }
 
     public class GetAllCoursesDTO

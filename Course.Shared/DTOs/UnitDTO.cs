@@ -10,6 +10,9 @@ namespace Course.Shared.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+        public int Order {  get; set; }
+        public bool IsLocked { get; set; }
+
         public int CourseId { get; set; } 
     }
 }

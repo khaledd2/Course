@@ -54,6 +54,7 @@ namespace Course.BLL.Services
                     Answer = course.Answer,
                     CategoryId = course.CategoryId,
                     AllowDownload = course.AllowDownload,
+                    IsLocked = course.IsLocked,
                     CreatedAt = DateTime.Now,
 
                 };
@@ -98,10 +99,12 @@ namespace Course.BLL.Services
                         ImageUrl = c.ImageUrl,
                         AllowDownload = c.AllowDownload,
                         CreatedAt = c.CreatedAt,
-                        CategoryName = c.Category.Name
+                        CategoryName = c.Category.Name,
+                        IsLocked = c.IsLocked,
+
                     })
-                .Take(pagination.PageSize)
                 .Skip(pagination.Skip())
+                .Take(pagination.PageSize)
                 .ToListAsync();
 
                 var dataTable = new DataTableVM<GetAllCoursesDTO>
@@ -139,6 +142,8 @@ namespace Course.BLL.Services
                         AllowDownload = c.AllowDownload,
                         CreatedAt = c.CreatedAt,
                         CategoryName = c.Category.Name,
+                        IsLocked = c.IsLocked,
+
 
                         Goals = c.Goals.Select(g=> new GoalDTO{
                             Id = g.Id,
@@ -148,7 +153,8 @@ namespace Course.BLL.Services
                         Units = c.Units.Select(u=> new UnitDTO
                         {
                             Id = u.Id,
-                            Name = u.Name
+                            Name = u.Name,
+                            IsLocked= u.IsLocked,
                         }).ToList()
                         
                     }).FirstOrDefaultAsync(c=>c.Id == id);
@@ -168,6 +174,7 @@ namespace Course.BLL.Services
                         Order = l.Order,
                         UnitId = l.UnitId,
                         UnitName = l.Unit.Name,
+                        IsLocked = l.IsLocked,
                     }).ToListAsync();
 
                 return new BaseResponse<GetOneCourseDTO>(item, Messages.RetrievedSuccessfully, [], true);
@@ -233,7 +240,7 @@ namespace Course.BLL.Services
                 oldCourse.Answer = course.Answer;
                 oldCourse.CategoryId = course.CategoryId;
                 oldCourse.AllowDownload = course.AllowDownload;
-                
+                oldCourse.IsLocked = course.IsLocked;
 
                 // clear the old goals
                 oldCourse.Goals.Clear();

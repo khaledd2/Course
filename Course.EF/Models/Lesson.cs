@@ -17,6 +17,8 @@ public partial class Lesson
 
     public int Order { get; set; }
 
+    public bool IsLocked { get; set; }
+
     public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual Unit Unit { get; set; } = null!;

@@ -33,7 +33,8 @@ namespace Course.BLL.Services
                 {
                     Id = maxUnitId + 1,
                     Name = unit.Name,
-                    CourseId = unit.CourseId
+                    CourseId = unit.CourseId,
+                    IsLocked = unit.IsLocked
                 };
 
                 _db.Units.Add(entity);
@@ -79,6 +80,7 @@ namespace Course.BLL.Services
                 }
 
                 entity.Name = unit.Name;
+                entity.IsLocked = unit.IsLocked;
 
                 _db.Units.Update(entity);
                 await _db.SaveChangesAsync();

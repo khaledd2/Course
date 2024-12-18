@@ -15,6 +15,9 @@ namespace Course.BLL
         {
             CreateMap<Lesson, GetOneLessonDTO>().ReverseMap();
             CreateMap<Lesson, PostLessonDTO>().ReverseMap();
+            CreateMap<Lesson, GetAllLessonsDTO>().ReverseMap();
+            CreateMap<Lesson, UnitDTO>().ReverseMap();
+            CreateMap<Lesson, UnitDTO>().ReverseMap();
         }
     }
 }

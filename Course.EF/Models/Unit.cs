@@ -9,6 +9,10 @@ public partial class Unit
 
     public string Name { get; set; } = null!;
 
+    public int Order { get; set; }
+
+    public bool IsLocked { get; set; }
+
     public int CourseId { get; set; }
 
     public virtual Course Course { get; set; } = null!;

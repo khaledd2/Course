@@ -93,8 +93,8 @@ namespace Course.BLL.Services
 
                 var categories = await
                     categoriesQuery
-                    .Take(pagination.PageSize)
                     .Skip(pagination.Skip())
+                    .Take(pagination.PageSize)
                     .ToListAsync();
 
                 var dataTable = new DataTableVM<CategoryDTO>

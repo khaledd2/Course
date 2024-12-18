@@ -21,6 +21,9 @@ namespace Course.Shared.DTOs
 
         public int Order { get; set; }
 
+        public bool IsLocked { get; set; }
+
+
     }
     public class GetOneLessonDTO
     {
@@ -38,6 +41,8 @@ namespace Course.Shared.DTOs
 
         public int Order { get; set; }
 
+        public bool IsLocked { get; set; }
+
     }
     public class GetAllLessonsDTO
     {
@@ -50,6 +55,8 @@ namespace Course.Shared.DTOs
         public string UnitName { get; set; } = string.Empty;
 
         public int Order { get; set; }
+        public bool IsLocked { get; set; }
+
 
     }
 

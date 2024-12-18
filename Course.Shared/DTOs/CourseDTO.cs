@@ -74,6 +74,9 @@ namespace Course.Shared.DTOs
 
         [Required(ErrorMessage = "الرجاء إدخال أهداف الدورة")]
         public string Goals { get; set; } = "Default Goals";
+
+        public bool IsLocked { get; set; }
+
     }
 
     public class GetOneCourseDTO
@@ -95,6 +98,7 @@ namespace Course.Shared.DTOs
         public int CategoryId { get; set; }
 
         public bool AllowDownload { get; set; }
+        public bool IsLocked { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -117,6 +121,7 @@ namespace Course.Shared.DTOs
         public bool AllowDownload { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public bool IsLocked { get; set; }
 
         public string CategoryName { get; set; } = null!;
 

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-/*=================================================== Builder ========================================*/
 var builder = WebApplication.CreateBuilder(args);
 
 // *** service *** //
@@ -53,13 +52,13 @@ builder.Services.AddSwaggerGen();
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // AutoMapper
 builder.Services.AddSingleton(new MapperConfiguration(mc =>
-    {
-        mc.AddProfile(new AutoMapperProfile());
-    }).CreateMapper());
+{
+    mc.AddProfile(new AutoMapperProfile());
+}).CreateMapper());
 
 // Custom services
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -68,8 +67,24 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 
+// ≈÷«›… Œœ„«  CORS
+builder.Services.AddCors(options =>
+{
+    //options.AddPolicy("AllowSpecificOrigin",
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
 /*=================================================== App ===========================================*/
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins");
+//app.UseCors("AllowSpecificOrigin"); // ·„« ‰—›⁄ «·›—Ê‰  ⁄ «” ÷«›… »ÌﬂÊ‰ ﬂ–«
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -79,7 +94,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapGroup("/identity").MapIdentityApi<IdentityUser>();
 app.UseAuthorization();
+app.MapGroup("/identity").MapIdentityApi<IdentityUser>();
 app.MapControllers();
 app.Run();

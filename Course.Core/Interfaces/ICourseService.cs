@@ -12,10 +12,10 @@ namespace Course.BLL.Interfaces
 {
     public interface ICourseService
     {
-        public Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination);
-        public Task<BaseResponse<GetOneCourseDTO>> GetCourseByIdAsync(int id);
-        public Task<BaseResponse<PostCourseDTO>> UpdateCourseAsync(PostCourseDTO course);
-        public Task<BaseResponse<PostCourseDTO>> CreateCourseAsync(PostCourseDTO course);
-        public Task<BaseResponse<GetOneCourseDTO>> RemoveCourseAsync(int course);
+        Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination);
+        Task<BaseResponse<GetOneCourseDTO>> GetCourseByIdAsync(int id);
+        Task<BaseResponse<PostCourseDTO>> UpdateCourseAsync(PostCourseDTO course);
+        Task<BaseResponse<PostCourseDTO>> CreateCourseAsync(PostCourseDTO course);
+        Task<BaseResponse<GetOneCourseDTO>> RemoveCourseAsync(int course);
     }
 }

@@ -39,9 +39,16 @@ namespace Course.BLL.Services
                 if (!imageResult.Success)
                     return new BaseResponse<PostCourseDTO>(null, imageResult.Message, [], false);
 
-                // Create new course 
                 int maxCourseId = 0;
                 int maxGoalId = 0;
+
+                // Set Id
+                if (_db.Courses.Any())
+                    maxCourseId = await _db.Courses.MaxAsync(c => c.Id);
+                if (_db.Goals.Any())
+                    maxGoalId = await _db.Goals.MaxAsync(c => c.Id);
+
+                // Create new course 
                 var item = new DAL.Models.Course()
                 {
                     Id = maxCourseId + 1,
@@ -57,12 +64,6 @@ namespace Course.BLL.Services
                     CreatedAt = DateTime.Now,
 
                 };
-
-                // Set Id
-                if(_db.Courses.Any())
-                    maxCourseId = await _db.Courses.MaxAsync(c => c.Id);
-                if(_db.Goals.Any())
-                    maxGoalId = await _db.Goals.MaxAsync(c => c.Id);
 
                 // 
                 item.Goals.ConvertGoalsFromStringToList(course.Goals, maxGoalId);

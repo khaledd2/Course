@@ -149,7 +149,7 @@ namespace Course.BLL.Services
             }
             catch (Exception ex)
             {
-                return new BaseResponse<CategoryDTO>(null, Messages.Error, new List<string> { ex.Message }, false);
+                return new BaseResponse<CategoryDTO>(null, Messages.ReferenceError, new List<string> { ex.Message }, false);
             }
         }
     }

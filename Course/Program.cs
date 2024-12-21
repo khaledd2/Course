@@ -1,11 +1,15 @@
-using AutoMapper;
+Ôªøusing AutoMapper;
 using Course.BLL;
 using Course.BLL.Interfaces;
 using Course.BLL.Services;
 using Course.DAL;
+using Course.Shared.DTOs;
+using Course.Shared;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Course.Shared.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +48,13 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStore
 builder.Services.AddAuthorization();
 
 // Controller
-builder.Services.AddControllers();
+builder.Services.AddControllers().ConfigureApiBehaviorOptions
+    (options => { options.InvalidModelStateResponseFactory = context =>
+        { var errorMessages = context.ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            var response = new BaseResponse<object>(null, Messages.Validation, errorMessages, false);
+            return new BadRequestObjectResult(response); 
+        };
+    }); ;
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -67,7 +77,9 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 
-// ≈÷«›… Œœ„«  CORS
+
+
+// √Ö√ñ√á√ù√â √é√è√£√á√ä CORS
 builder.Services.AddCors(options =>
 {
     //options.AddPolicy("AllowSpecificOrigin",
@@ -80,11 +92,14 @@ builder.Services.AddCors(options =>
         });
 });
 
-/*=================================================== App ===========================================*/
+/*=================================================== App ===============================================*/
 var app = builder.Build();
 
-//app.UseCors("AllowSpecificOrigin"); // ·„« ‰—›⁄ «·›—Ê‰  ⁄ «” ÷«›… »ÌﬂÊ‰ ﬂ–«
+//app.UseCors("AllowSpecificOrigin"); // √°√£√á √§√ë√ù√ö √á√°√ù√ë√¶√§√ä √ö √á√ì√ä√ñ√á√ù√â √à√≠√ü√¶√§ √ü√ê√á
 app.UseCors("AllowAllOrigins");
+
+// Enable serving of static files from the wwwroot folder
+app.UseStaticFiles(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

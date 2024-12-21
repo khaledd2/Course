@@ -15,6 +15,7 @@ namespace Course.Shared.Constants
         public static string NotFound => "لم يتم العثور على العنصر";
         public static string RetrievedSuccessfully => "تم جلب البيانات بنجاح";
         public static string ReferenceError => "لم يتم الحذف، تأكد من عدم وجود ارتباطات بهذا العنصر";
+        public static string Validation => "الرجاء ادخال الحقول بطريقة صحيحة";
 
     }
 

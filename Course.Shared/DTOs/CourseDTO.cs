@@ -52,7 +52,7 @@ namespace Course.Shared.DTOs
         public string Title { get; set; } = "Default Title";
 
         [Required(ErrorMessage = "الرجاء إدخال وصف الدورة")]
-        [StringLength(500, ErrorMessage = "يجب أن يكون وصف الدورة أقل من 500 حرف")]
+        [StringLength(2500, ErrorMessage = "يجب أن يكون وصف الدورة أقل من 2500 حرف")]
         public string Description { get; set; } = "Default Description";
 
         public IFormFile? ImageFile { get; set; } = null;

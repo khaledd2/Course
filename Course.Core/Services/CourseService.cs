@@ -250,6 +250,7 @@ namespace Course.BLL.Services
                 // clear the old goals
                 oldCourse.Goals.Clear();
 
+                // add new goals
                 int maxGoalId = await _db.Goals.MaxAsync(c => c.Id);
                 oldCourse.Goals.ConvertGoalsFromStringToList(course.Goals, maxGoalId);
 

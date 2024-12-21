@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// *** service *** //
+/*=================================================== Services ========================================*/
 // Auth services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
@@ -83,8 +83,8 @@ builder.Services.AddCors(options =>
 /*=================================================== App ===========================================*/
 var app = builder.Build();
 
-app.UseCors("AllowAllOrigins");
 //app.UseCors("AllowSpecificOrigin"); // ·„« ‰—›⁄ «·›—Ê‰  ⁄ «” ÷«›… »ÌﬂÊ‰ ﬂ–«
+app.UseCors("AllowAllOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

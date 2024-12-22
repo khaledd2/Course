@@ -13,11 +13,17 @@ namespace Course.BLL
     {
         public AutoMapperProfile() 
         {
+            // Lesson
             CreateMap<Lesson, GetOneLessonDTO>().ReverseMap();
             CreateMap<Lesson, PostLessonDTO>().ReverseMap();
             CreateMap<Lesson, GetAllLessonsDTO>().ReverseMap();
-            CreateMap<Lesson, UnitDTO>().ReverseMap();
-            CreateMap<Lesson, UnitDTO>().ReverseMap();
+
+            // Post
+            CreateMap<Post, PostPostDTO>().ReverseMap();
+            CreateMap<Post,  GetPostDTO>()
+                .ForMember(des=>des.CategoryName, opt=>opt.MapFrom(src=>src.Category.Name))
+                .ReverseMap();
+            
         }
     }
 }

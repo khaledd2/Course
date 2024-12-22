@@ -51,7 +51,7 @@ namespace Course.BLL.Services
                 .ToListAsync();
 
                 var mappedItems = _mapper.Map<List<GetPostDTO>>(items);
-
+                
                 var dataTable = new DataTableVM<GetPostDTO>
                         (data: mappedItems, dataSize: dataSize, pageSize: pagination.PageSize, currentPage: pagination.PageNumber);
 
@@ -173,6 +173,8 @@ namespace Course.BLL.Services
 
                 // New post
                 var newPost = _mapper.Map<Post>(post);
+                newPost.CreatedAt = oldPost.CreatedAt;
+                newPost.ImageUrl = imageResult.Data ?? "";
 
                 _db.Posts.Update(newPost);
                 await _db.SaveChangesAsync();

@@ -76,8 +76,7 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
-
-
+builder.Services.AddScoped<IPostService, PostService>();
 
 // ÅÖÇÝÉ ÎÏãÇÊ CORS
 builder.Services.AddCors(options =>

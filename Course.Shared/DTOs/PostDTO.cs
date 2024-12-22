@@ -19,8 +19,6 @@ namespace Course.Shared.DTOs
         [Required(ErrorMessage = "الرجاء إدخال صورة المقالة")]
         public IFormFile ImageFile { get; set; } = null!;
 
-        public DateTime CreatedAt { get; set; }
-
         [Required(ErrorMessage = "الرجاء إدخال وصف المقالة")]
         [StringLength(15000, ErrorMessage = "يجب أن تكون المقالة أقل من 15000 حرف")]
         public string Description { get; set; } = null!;

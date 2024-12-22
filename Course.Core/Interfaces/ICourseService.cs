@@ -7,12 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Course.Shared.Records;
 using Course.Shared.ViewModels;
+using Course.Shared.Interfaces;
 
 namespace Course.BLL.Interfaces
 {
     public interface ICourseService
     {
-        Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination);
+        Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(IPagination pagination);
         Task<BaseResponse<GetOneCourseDTO>> GetCourseByIdAsync(int id);
         Task<BaseResponse<PostCourseDTO>> UpdateCourseAsync(PostCourseDTO course);
         Task<BaseResponse<PostCourseDTO>> CreateCourseAsync(PostCourseDTO course);

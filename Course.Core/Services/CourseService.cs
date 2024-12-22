@@ -5,6 +5,7 @@ using Course.DAL.Models;
 using Course.Shared;
 using Course.Shared.Constants;
 using Course.Shared.DTOs;
+using Course.Shared.Interfaces;
 using Course.Shared.Records;
 using Course.Shared.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,6 @@ namespace Course.BLL.Services
             try
             {
                 // Add course image to /CourseImages
-
                 var imageResult = await _imageService.AddImageAsync(course.ImageFile, "CourseImages/");
                 if (!imageResult.Success)
                     return new BaseResponse<PostCourseDTO>(null, imageResult.Message, [], false);
@@ -81,7 +81,7 @@ namespace Course.BLL.Services
             }
         }
 
-        public async Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(Pagination pagination)
+        public async Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(IPagination pagination)
         {
             try
             {
@@ -227,6 +227,8 @@ namespace Course.BLL.Services
 
                 // Add course image to /CourseImages if user pass new image 
                 var imageResult = new BaseResponse<string>(null, Messages.Error, [], false);
+                string imageToBeDeleted = oldCourse.ImageUrl;
+
                 if (course.ImageFile != null)
                 {
                     // Add new image 
@@ -262,7 +264,7 @@ namespace Course.BLL.Services
                 if (imageResult.Success)
                 {
                     // To delete the old course image
-                    var deleteImageResult = await _imageService.RemoveImageAsync(oldCourse.ImageUrl);
+                    var deleteImageResult = await _imageService.RemoveImageAsync(imageToBeDeleted);
                 }
 
                 return new BaseResponse<PostCourseDTO>(course, Messages.UpdatedSuccessfully);

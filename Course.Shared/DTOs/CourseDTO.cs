@@ -44,7 +44,6 @@ namespace Course.Shared.DTOs
 
     public class PostCourseDTO
     {
-        [Required(ErrorMessage = "الرجاء إدخال عنوان الدورة")]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "الرجاء إدخال عنوان الدورة")]

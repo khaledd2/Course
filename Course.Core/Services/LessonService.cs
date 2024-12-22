@@ -42,6 +42,7 @@ namespace Course.BLL.Services
                 _db.Lessons.Add(entity);
                 await _db.SaveChangesAsync();
 
+                lesson.Id = entity.Id;
                 return new BaseResponse<PostLessonDTO>(lesson, Messages.AddedSuccessfully);
             }
             catch (Exception ex)

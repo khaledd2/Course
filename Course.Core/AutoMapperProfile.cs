@@ -22,6 +22,7 @@ namespace Course.BLL
             CreateMap<Post, PostPostDTO>().ReverseMap();
             CreateMap<Post,  GetPostDTO>()
                 .ForMember(des=>des.CategoryName, opt=>opt.MapFrom(src=>src.Category.Name))
+                .ForMember(des=>des.ImageUrl, opt=>opt.MapFrom(src=> src.ImageUrl == null ? "" : src.ImageUrl.Replace("wwwroot/", "")))
                 .ReverseMap();
             
         }

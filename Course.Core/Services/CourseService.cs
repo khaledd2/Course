@@ -102,7 +102,7 @@ namespace Course.BLL.Services
                     {
                         Id = c.Id,
                         Title = c.Title,
-                        ImageUrl = c.ImageUrl,
+                        ImageUrl = c.ImageUrl == null ? "" : c.ImageUrl.Replace("wwwroot/",""),
                         AllowDownload = c.AllowDownload,
                         CreatedAt = c.CreatedAt,
                         CategoryName = c.Category.Name,
@@ -140,7 +140,7 @@ namespace Course.BLL.Services
                         Id = c.Id,
                         Title = c.Title,
                         Description = c.Description,
-                        ImageUrl = c.ImageUrl,
+                        ImageUrl = c.ImageUrl == null ? "" : c.ImageUrl.Replace("wwwroot/", ""),
                         HasCertificate = c.HasCertificate,
                         Question = c.Question,
                         Answer = c.Answer,

@@ -11,8 +11,8 @@ namespace Course.BLL.Interfaces
 {
     public interface IUnitService
     {
-        public Task<BaseResponse<UnitDTO>> CreateUnitAsync(UnitDTO unit);
-        public Task<BaseResponse<UnitDTO>> UpdateUnitAsync(UnitDTO unit);
-        public Task<BaseResponse<UnitDTO>> RemoveUnitAsync(int unitId);
+        Task<BaseResponse<UnitDTO>> CreateUnitAsync(UnitDTO unit);
+        Task<BaseResponse<UnitDTO>> UpdateUnitAsync(UnitDTO unit);
+        Task<BaseResponse<UnitDTO>> RemoveUnitAsync(int unitId);
     }
 }

@@ -12,11 +12,11 @@ namespace Course.BLL.Interfaces
 {
     public interface ICategoryService
     {
-        public Task<BaseResponse<DataTableVM<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination);
-        public Task<BaseResponse<CategoryDTO>> GetCategoryByIdAsync(int id); 
-        public Task<BaseResponse<CategoryDTO>> UpdateCategoryAsync(CategoryDTO category);
-        public Task<BaseResponse<CategoryDTO>> CreateCategoryAsync(CategoryDTO category);
-        public Task<BaseResponse<CategoryDTO>> RemoveCategoryAsync(int categoryId);
+        Task<BaseResponse<DataTableVM<CategoryDTO>>> GetAllCategoriesAsync(Pagination pagination);
+        Task<BaseResponse<CategoryDTO>> GetCategoryByIdAsync(int id); 
+        Task<BaseResponse<CategoryDTO>> UpdateCategoryAsync(CategoryDTO category);
+        Task<BaseResponse<CategoryDTO>> CreateCategoryAsync(CategoryDTO category);
+        Task<BaseResponse<CategoryDTO>> RemoveCategoryAsync(int categoryId);
 
     }
 }

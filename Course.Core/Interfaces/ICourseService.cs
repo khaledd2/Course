@@ -13,8 +13,9 @@ namespace Course.BLL.Interfaces
 {
     public interface ICourseService
     {
-        Task<BaseResponse<DataTableVM<GetAllCoursesDTO>>> GetAllCoursesAsync(IPagination pagination);
+        Task<BaseResponse<DataTableVM<GetOneCourseDTO>>> GetAllCoursesAsync(IPagination pagination);
         Task<BaseResponse<GetOneCourseDTO>> GetCourseByIdAsync(int id);
+        Task<BaseResponse<DataTableVM<GetAllCourseNamesWithUnitNamesDTO>>> GetAllCourseNamesWithUnitNamesAsync(IPagination pagination);
         Task<BaseResponse<PostCourseDTO>> UpdateCourseAsync(PostCourseDTO course);
         Task<BaseResponse<PostCourseDTO>> CreateCourseAsync(PostCourseDTO course);
         Task<BaseResponse<GetOneCourseDTO>> RemoveCourseAsync(int course);

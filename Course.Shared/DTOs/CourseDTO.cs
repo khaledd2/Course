@@ -125,4 +125,14 @@ namespace Course.Shared.DTOs
         public string CategoryName { get; set; } = null!;
 
     }
+
+    public class GetAllCourseNamesWithUnitNamesDTO
+    {
+        public int Id { get; set; }
+
+        public string Title { get; set; } = null!;
+
+        public List<GetUnitNameDTO> Units { get; set; } = null!;
+
+    }
 }

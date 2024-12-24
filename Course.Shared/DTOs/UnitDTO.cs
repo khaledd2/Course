@@ -25,4 +25,12 @@ namespace Course.Shared.DTOs
         public int CourseId { get; set; }
     }
 
+    public class GetUnitNameDTO
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = null!;
+    }
+
+
 }

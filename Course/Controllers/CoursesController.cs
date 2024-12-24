@@ -27,6 +27,15 @@ namespace Course.API.Controllers
             return BadRequest(response);
         }
 
+        [HttpGet("GetAllCourseNamesWithUnitNamesAsync")]
+        public async Task<IActionResult> GetAllCourseNamesWithUnitNamesAsync([FromQuery] Pagination pagination)
+        {
+            var response = await _courseServices.GetAllCourseNamesWithUnitNamesAsync(pagination);
+            if (response.Success)
+                return Ok(response);
+            return BadRequest(response);
+        }
+
         [HttpGet("GetCourseByIdAsync/{id}")]
         public async Task<IActionResult> GetCourseByIdAsync(int id)
         {

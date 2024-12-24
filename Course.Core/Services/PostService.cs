@@ -151,6 +151,8 @@ namespace Course.BLL.Services
 
         public async Task<BaseResponse<PostPostDTO>> UpdatePostAsync(PostPostDTO post)
         {
+            var imageResult = new BaseResponse<string>(null, Messages.Error, [], false);
+
             try
             {
                 // To get the old post image url
@@ -158,8 +160,6 @@ namespace Course.BLL.Services
                 if (oldPost == null)
                     return new BaseResponse<PostPostDTO>(null, Messages.NotFound, [], false);
 
-                // Add course image to /PostImages if user pass new image 
-                var imageResult = new BaseResponse<string>(null, Messages.Error, [], false);
                 string imageToBeDeleted = oldPost.ImageUrl;
 
                 if (post.ImageFile != null)
@@ -168,7 +168,6 @@ namespace Course.BLL.Services
                     imageResult = await _imageService.AddImageAsync(post.ImageFile, "PostImages/");
                     if (!imageResult.Success)
                         return new BaseResponse<PostPostDTO>(null, imageResult.Message, [], false);
-
                 }
 
                 // New post
@@ -183,15 +182,16 @@ namespace Course.BLL.Services
                 if (imageResult.Success)
                 {
                     // To delete the old course image
-                    var deleteImageResult = await _imageService.RemoveImageAsync(imageToBeDeleted);
+                    await _imageService.RemoveImageAsync(imageToBeDeleted);
                 }
 
                 return new BaseResponse<PostPostDTO>(post, Messages.UpdatedSuccessfully);
             }
             catch (Exception ex)
             {
-                return new BaseResponse<PostPostDTO>(null, Messages.Error, new List<string> { ex.Message }, false);
 
+                await _imageService.RemoveImageAsync(imageResult?.Data ?? string.Empty);
+                return new BaseResponse<PostPostDTO>(null, Messages.Error, new List<string> { ex.Message }, false);
             }
         }
     }

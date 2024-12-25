@@ -14,12 +14,14 @@ namespace Course.BLL.Services
     public class CourseService : ICourseService
     {
         private readonly IImageService _imageService;
+        private readonly ILessonService _lessonService;
         private readonly AppDbContext _db;
 
-        public CourseService(IImageService imageService, AppDbContext db)
+        public CourseService(IImageService imageService, AppDbContext db, ILessonService lessonService)
         {
             _imageService = imageService;
             _db = db;
+            _lessonService = lessonService;
         }
 
         public async Task<BaseResponse<PostCourseDTO>> CreateCourseAsync(PostCourseDTO course)
@@ -162,6 +164,11 @@ namespace Course.BLL.Services
                 .Take(pagination.PageSize)
                 .ToListAsync();
 
+                foreach (var item in items)
+                {
+                    item.Lessons = (await _lessonService.GetAllLessonsByCourseIdAsync(item.Id))?.Data ?? new();
+                }
+
                 var dataTable = new DataTableVM<GetOneCourseDTO>
                         (data: items, dataSize: dataSize, pageSize: pagination.PageSize, currentPage: pagination.PageNumber);
 
@@ -215,19 +222,7 @@ namespace Course.BLL.Services
                     return new BaseResponse<GetOneCourseDTO>(null, Messages.NotFound, [], false);
 
                 // Incude lessons
-                item.Lessons = await _db.Lessons
-                    .Where(l => l.Unit.CourseId == id)
-                    .OrderBy(l => l.UnitId)
-                    .ThenBy(l => l.Order)
-                    .Select(l => new GetAllLessonsDTO
-                    {
-                        Id = l.Id,
-                        Name = l.Name,
-                        Order = l.Order,
-                        UnitId = l.UnitId,
-                        UnitName = l.Unit.Name,
-                        IsLocked = l.IsLocked,
-                    }).ToListAsync();
+                item.Lessons = (await _lessonService.GetAllLessonsByCourseIdAsync(id))?.Data ?? new();
 
                 return new BaseResponse<GetOneCourseDTO>(item, Messages.RetrievedSuccessfully, [], true);
             }

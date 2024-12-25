@@ -17,7 +17,7 @@ namespace Course.API.Controllers
         }
         
         [HttpGet("GetAllCategoriesAsync")]
-        public async Task<IActionResult> GetAllCategoriesAsync([FromQuery] Pagination pagination)
+        public async Task<IActionResult> GetAllCategoriesAsync([FromQuery]CategoreyPagination pagination)
         {
             var response = await _categoryServices.GetAllCategoriesAsync(pagination);
             if (response.Success)

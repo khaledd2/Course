@@ -51,6 +51,33 @@ namespace Course.BLL.Services
             }
         }
 
+        public async Task<BaseResponse<List<GetAllLessonsDTO>>> GetAllLessonsByCourseIdAsync(int courseId)
+        {
+            try
+            {
+                var lessons = await _db.Lessons
+                    .Where(l => l.Unit.CourseId == courseId)
+                    .OrderBy(l => l.UnitId)
+                    .ThenBy(l => l.Order)
+                    .Select(l => new GetAllLessonsDTO
+                    {
+                        Id = l.Id,
+                        Name = l.Name,
+                        Order = l.Order,
+                        UnitId = l.UnitId,
+                        UnitName = l.Unit.Name, 
+                        IsLocked = l.IsLocked,
+                    }).ToListAsync();
+
+                return new BaseResponse<List<GetAllLessonsDTO>>(data: lessons, message: Messages.RetrievedSuccessfully, [], true);
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<GetAllLessonsDTO>>(null, Messages.Error, new List<string> { ex.Message }, false);
+
+            }
+        }
+
         public async Task<BaseResponse<GetOneLessonDTO>> GetLessonByIdAsync(int id)
         {
             try

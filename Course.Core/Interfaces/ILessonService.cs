@@ -12,6 +12,7 @@ namespace Course.BLL.Interfaces
     public interface ILessonService
     {
         Task<BaseResponse<GetOneLessonDTO>> GetLessonByIdAsync(int id);
+        Task<BaseResponse<List<GetAllLessonsDTO>>> GetAllLessonsByCourseIdAsync(int courseId);
         Task<BaseResponse<PostLessonDTO>> UpdateLessonAsync(PostLessonDTO lesson);
         Task<BaseResponse<PostLessonDTO>> CreateLessonAsync(PostLessonDTO lesson);
         Task<BaseResponse<GetOneLessonDTO>> RemoveLessonAsync(int lessonId);

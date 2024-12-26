@@ -9,7 +9,6 @@ namespace Course.API.Controllers
     [ApiController]
     public class UnitsController : ControllerBase
     {
-
         private readonly IUnitService _unitService;
         public UnitsController(IUnitService unitService)
         {
@@ -48,6 +47,5 @@ namespace Course.API.Controllers
                 return Ok(response);
             return BadRequest(response);
         }
-
     }
 }

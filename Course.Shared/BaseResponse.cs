@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Course.Shared
 {
-    public class BaseResponse<T>(T? data, string message, List<string> errors = null, bool success = true)
+    public class BaseResponse<T>(T? data, string message, List<string> errors = null!, bool success = true)
     {
         public bool Success { get; set; } = success;
         public string Message { get; set; } = message;

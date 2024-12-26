@@ -40,6 +40,7 @@ namespace Course.BLL.Services
                 _db.Units.Add(entity);
                 await _db.SaveChangesAsync();
 
+                unit.Id = entity.Id;
                 return new BaseResponse<UnitDTO>(unit, Messages.AddedSuccessfully);
             }
             catch (Exception ex)
@@ -54,10 +55,8 @@ namespace Course.BLL.Services
             {
                 var entity = await _db.Units.FindAsync(unitId);
                 if (entity == null)
-                {
                     return new BaseResponse<UnitDTO>(null, Messages.NotFound, [], false);
-                }
-
+                
                 _db.Units.Remove(entity);
                 await _db.SaveChangesAsync();
 
@@ -75,9 +74,7 @@ namespace Course.BLL.Services
             {
                 var entity = await _db.Units.FindAsync(unit.Id);
                 if (entity == null)
-                {
                     return new BaseResponse<UnitDTO>(null, Messages.NotFound, [], false);
-                }
 
                 entity.Name = unit.Name;
                 entity.IsLocked = unit.IsLocked;

@@ -1,6 +1,7 @@
 ﻿using Course.BLL.Extensions;
 using Course.BLL.Interfaces;
 using Course.DAL;
+using Course.DAL.Models;
 using Course.Shared;
 using Course.Shared.Constants;
 using Course.Shared.DTOs;
@@ -65,13 +66,14 @@ namespace Course.BLL.Services
                 // Save changes
                 await _db.AddAsync(item);
                 await _db.SaveChangesAsync();
+
+                course.Id = item.Id;
                 return new BaseResponse<PostCourseDTO>(course, Messages.AddedSuccessfully);
 
             }
             catch (Exception ex)
             {
                 return new BaseResponse<PostCourseDTO>(null, Messages.Error, new List<string> { ex.Message }, false);
-
             }
         }
 
@@ -118,7 +120,7 @@ namespace Course.BLL.Services
         {
             try
             {
-                // Get course By id
+                // Get courses
                 var itemsQuery = _db.Courses.AsQueryable();
 
                 // Search
@@ -304,7 +306,6 @@ namespace Course.BLL.Services
                 if (imageResult.Success)
                     await _imageService.RemoveImageAsync(imageToBeDeleted);
                 
-
                 return new BaseResponse<PostCourseDTO>(course, Messages.UpdatedSuccessfully);
             }
             catch (Exception ex)

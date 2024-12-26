@@ -77,8 +77,11 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IUnitService, UnitService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ISurveyService, SurveyService>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IAnswerService, AnswersService>();
 
-// ÅÖÇÝÉ ÎÏãÇÊ CORS
+// CORS
 builder.Services.AddCors(options =>
 {
     //options.AddPolicy("AllowSpecificOrigin",
@@ -94,7 +97,7 @@ builder.Services.AddCors(options =>
 /*=================================================== App ===============================================*/
 var app = builder.Build();
 
-//app.UseCors("AllowSpecificOrigin"); // áãÇ äÑÝÚ ÇáÝÑæäÊ Ú ÇÓÊÖÇÝÉ Èíßæä ßÐÇ
+// CORS
 app.UseCors("AllowAllOrigins");
 
 // Enable serving of static files from the wwwroot folder

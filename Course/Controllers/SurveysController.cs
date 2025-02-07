@@ -37,7 +37,7 @@ namespace Course.API.Controllers
         }
 
         [HttpPost("CreateSurveyAsync")]
-        public async Task<IActionResult> CreateSurveyAsync([FromForm] PostSurveyDTO survey)
+        public async Task<IActionResult> CreateSurveyAsync(/*[FromForm]*/ PostSurveyDTO survey)
         {
             var response = await _surveyService.CreateSurveyAsync(survey);
             if (response.Success)
@@ -46,7 +46,7 @@ namespace Course.API.Controllers
         }
 
         [HttpPut("UpdateSurveyAsync")]
-        public async Task<IActionResult> UpdateCourseAsync([FromForm] PostSurveyDTO survey)
+        public async Task<IActionResult> UpdateCourseAsync(/*[FromForm]*/ PostSurveyDTO survey)
         {
             var response = await _surveyService.UpdateSurveyAsync(survey);
 
